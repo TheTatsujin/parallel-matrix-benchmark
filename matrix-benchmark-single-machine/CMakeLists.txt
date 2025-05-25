@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 3.30)
-project(MatrixMult C)
+cmake_minimum_required(VERSION 3.31)
+project(matrix-benchmark-single-machine C)
+
 
 set(CMAKE_C_STANDARD 99)
 
@@ -11,8 +12,9 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(PAPI REQUIRED papi)
 
 # Add your executable
-add_executable(MatrixMult main.c)
+add_executable(matrix-benchmark-single-machine main.c)
 
-target_include_directories(MatrixMult PRIVATE ${PAPI_INCLUDE_DIRS})
+target_include_directories(matrix-benchmark-single-machine PRIVATE ${PAPI_INCLUDE_DIRS})
 # Link OpenMP to your executable
-target_link_libraries(MatrixMult PRIVATE ${PAPI_LIBRARIES} OpenMP::OpenMP_C m)
+
+target_link_libraries(matrix-benchmark-single-machine PRIVATE ${PAPI_LIBRARIES} OpenMP::OpenMP_C m)

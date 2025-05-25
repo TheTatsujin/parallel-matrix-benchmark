@@ -98,12 +98,10 @@ int matrix_mult
   }
   PAPI_stop(EventSet, measures);
 
-#pragma omp critical
-  {
-    printf("Sequential - Total Cycles: %lld\n", measures[0]);
-    printf("Sequential - float Precision Operations: %lld\n",measures[1]);
-    printf("Sequential - Total L1 Cache misses: %lld\n",measures[2]);
-  }
+  printf("Sequential - Total Cycles: %lld\n", measures[0]);
+  printf("Sequential - float Precision Operations: %lld\n",measures[1]);
+  printf("Sequential - Total L1 Cache misses: %lld\n",measures[2]);
+
 
   PAPI_cleanup_eventset(EventSet);
   PAPI_destroy_eventset(&EventSet);
