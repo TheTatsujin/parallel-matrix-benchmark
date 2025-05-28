@@ -164,7 +164,7 @@ int main(int argc, char** argv) {
     matrix_allocate(MATRIX_SIZE, &full_result);
     MPI_Gather(result, my_half_size * MATRIX_SIZE, MPI_FLOAT, full_result, slave_matrix_size * MATRIX_SIZE, MPI_FLOAT, MASTER_NODE, MPI_COMM_WORLD);
 
-    printf("Master elapsed time: %.5f ms\n", (start_time - master_end_time) * 1000.0);
+    printf("Master elapsed time: %.5f ms\n", (master_end_time - start_time) * 1000.0);
 
     printf("Press Enter for result\n");
     fgetc(stdin);
@@ -173,7 +173,7 @@ int main(int argc, char** argv) {
   }
   else {
     slave_end_time = MPI_Wtime();
-    printf("Slave elapsed time: %.5f ms\n", (start_time - slave_end_time) * 1000.0);
+    printf("Slave elapsed time: %.5f ms\n", (slave_end_time - start_time) * 1000.0);
     MPI_Gather(result, my_half_size * MATRIX_SIZE, MPI_FLOAT, NULL, 0, MPI_FLOAT, MASTER_NODE, MPI_COMM_WORLD);
   }
 
