@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.31)
+cmake_minimum_required(VERSION 3.30)
 
 # Tell CMake to use mpicc before defining the project
 set(CMAKE_C_COMPILER mpicc CACHE STRING "MPI C compiler")
@@ -12,6 +12,13 @@ find_package(MPI REQUIRED)
 if (NOT MPI_FOUND)
     message(FATAL_ERROR "MPI not found!")
 endif()
+
+# Find OpenMP
+find_package(OpenMP REQUIRED)
+if (NOT OpenMP_C_FOUND)
+    message(FATAL_ERROR "OpenMP not found!")
+endif()
+
 
 # Find PAPI
 find_path(PAPI_INCLUDE_DIR papi.h)
@@ -29,4 +36,8 @@ include_directories(${PAPI_INCLUDE_DIR})
 add_executable(matrix_benchmark_cluster main.c)
 
 # Link MPI and PAPI
-target_link_libraries(matrix_benchmark_cluster ${MPI_C_LIBRARIES} ${PAPI_LIBRARY})
+target_link_libraries(matrix_benchmark_cluster
+        ${MPI_C_LIBRARIES}
+        ${PAPI_LIBRARY}
+        OpenMP::OpenMP_C
+)
