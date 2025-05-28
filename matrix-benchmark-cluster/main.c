@@ -118,7 +118,7 @@ void matrix_print(const int rows, const int columns, const float* A) {
 
 
 int main(int argc, char** argv) {
-  double start_time = 0.;
+  double start_time = 0., slave_end_time = 0., master_end_time = 0.;
   float *A, *B, *result;
   float *full_result;
   const int master_matrix_size = MATRIX_SIZE / 2;
@@ -155,28 +155,31 @@ int main(int argc, char** argv) {
     for (int j = 0; j < MATRIX_SIZE; j++) result[i*MATRIX_SIZE + j] = (float) 0.;
   }
 
-  if (rank == MASTER_NODE) start_time = MPI_Wtime();  // START TIME
+  start_time = MPI_Wtime();  // START TIME
   matrix_parallel_mult_half(my_half_size, rank, THREAD_NUMBER, A, B, result);
 
   if (rank == MASTER_NODE) {
-    const double end_time = MPI_Wtime();    // STOP TIME
-    const double elapsed_ms = (end_time - start_time) * 1000.0;  // seconds to ms
-
-    printf("Elapsed time: %.5f ms\n", elapsed_ms);
+    master_end_time = MPI_Wtime();    // STOP TIME
 
     matrix_allocate(MATRIX_SIZE, &full_result);
     MPI_Gather(result, my_half_size * MATRIX_SIZE, MPI_FLOAT, full_result, slave_matrix_size * MATRIX_SIZE, MPI_FLOAT, MASTER_NODE, MPI_COMM_WORLD);
+
+    printf("Master elapsed time: %.5f ms\n", (start_time - master_end_time) * 1000.0);
+
     printf("Press Enter for result\n");
     fgetc(stdin);
     matrix_print(MATRIX_SIZE, MATRIX_SIZE, full_result);
     free(full_result);
   }
-  else MPI_Gather(result, my_half_size * MATRIX_SIZE, MPI_FLOAT, NULL, 0, MPI_FLOAT, MASTER_NODE, MPI_COMM_WORLD);
+  else {
+    slave_end_time = MPI_Wtime();
+    printf("Slave elapsed time: %.5f ms\n", (start_time - slave_end_time) * 1000.0);
+    MPI_Gather(result, my_half_size * MATRIX_SIZE, MPI_FLOAT, NULL, 0, MPI_FLOAT, MASTER_NODE, MPI_COMM_WORLD);
+  }
 
   free(A);
   free(B);
   free(result);
   MPI_Finalize();
-
   return 0;
 }
