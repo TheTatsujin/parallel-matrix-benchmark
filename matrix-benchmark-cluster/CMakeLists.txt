@@ -5,7 +5,7 @@ set(CMAKE_C_COMPILER mpicc CACHE STRING "MPI C compiler")
 
 project(matrix_benchmark_cluster C)
 
-set(CMAKE_C_STANDARD 90)
+set(CMAKE_C_STANDARD 99)
 
 # Find MPI
 find_package(MPI REQUIRED)
