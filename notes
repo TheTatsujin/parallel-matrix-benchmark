@@ -1,0 +1,91 @@
+## N = 500
+
+- Avg Cycles
+
+sequential:      1,531,631,335
+cpu thread:        207,352,946
+cluster:           131,366,297
+gpu:
+
+- Avg L1 Cache misses
+
+sequential:      7,919,647
+cpu thread:      1,319,291
+cluster:           652,180
+gpu:
+
+- Single Precision Operations
+
+sequential:      250,000,000
+cpu thread:       41,667,000 x 4 + 41,666,000 x 2
+cluster:          20,833,000 x 8 + 20,834,000 x 4
+gpu:
+
+## N = 1,500
+
+- Avg Cycles
+
+sequential:      41,617,293,388
+cpu thread:       5,142,705,182
+cluster:          3,597,231,615
+gpu:
+
+- Avg L1 Cache misses
+
+sequential:      213,126,538
+cpu thread:       35,544,634
+cluster:          17,765,046
+gpu:
+
+- Single Precision Operations
+
+sequential:      6,750,000,000
+cpu thread:      1,125,000,000 x 6
+cluster:           562,500,000 x 12
+gpu:
+
+## N = 5,000
+
+- Avg Cycles
+
+sequential:     1,542,339,967,001
+cpu thread:       189,290,462,976
+cluster:          134,283,747,849
+gpu:
+
+- Avg L1 Cache Misses
+
+sequential:     8,473,470,625
+cpu thread:     1,388,372,647
+cluster:        1,308,733,325
+gpu:
+
+- Single Precision Operations
+
+sequential:     250,000,000,000
+cpu thread:      41,666,670,000 x 4 + 41,666,660,000 x 2
+cluster:         20,833,330,000 x 8 + 20,833,340,000 x 4
+gpu:
+
+## N = 10,000
+
+- Avg Cycles
+
+sequential:
+cpu thread:     1,512,612,694,640
+cluster:        1,099,326,512,353
+gpu:
+
+- Avg L1 Caches misses
+
+sequential:
+cpu thread:     20,883,807,528
+cluster:        10,451,961,030
+gpu:
+
+- Single Precision Operations
+
+sequential:
+cpu thread:     333,333,340,000 x 4 + 333,333,320,000 x 2
+cluster:        166,666,660,000 x 8 + 166,666,660,000 x 4
+gpu:
