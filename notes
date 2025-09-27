@@ -71,21 +71,21 @@ gpu:
 
 - Avg Cycles
 
-sequential:
-cpu thread:     1,512,612,694,640
-cluster:        1,099,326,512,353
+sequential:     12,210,407,387,724
+cpu thread:      1,512,612,694,640
+cluster:         1,099,326,512,353
 gpu:
 
 - Avg L1 Caches misses
 
-sequential:
-cpu thread:     20,883,807,528
-cluster:        10,451,961,030
+sequential:     124,920,169,320
+cpu thread:      20,883,807,528
+cluster:         10,451,961,030
 gpu:
 
 - Single Precision Operations
 
-sequential:
-cpu thread:     333,333,340,000 x 4 + 333,333,320,000 x 2
-cluster:        166,666,660,000 x 8 + 166,666,660,000 x 4
+sequential:     2,000,000,000,000
+cpu thread:       333,333,340,000 x 4 + 333,333,320,000 x 2
+cluster:          166,666,660,000 x 8 + 166,666,660,000 x 4
 gpu:

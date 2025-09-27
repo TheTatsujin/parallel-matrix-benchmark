@@ -10,7 +10,7 @@
 #define ERROR_MEMORY_ALLOCATION 0x66
 
 #define THREAD_NUMBER 6
-#define MATRIX_SIZE 1200
+#define MATRIX_SIZE 10000
 
 #define PI 3.14159265358979323846
 
@@ -137,7 +137,7 @@ int matrix_parallel_mult
   int my_thread_id;
   #pragma omp parallel default(none) shared(A, B, result) firstprivate(size) private(my_thread_id)
   {
-    int i, EventSet = PAPI_NULL;
+    int i, j, EventSet = PAPI_NULL;
     long long measures[3];
 
     PAPI_create_eventset(&EventSet);
@@ -149,9 +149,9 @@ int matrix_parallel_mult
 
     PAPI_start(EventSet);
 
-    #pragma omp for private(i)
+    #pragma omp for collapse(2) private(i, j)
     for (i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
+      for (j = 0; j < size; j++) {
         float temp = (float) 0.;
         for (int k = 0; k < size; k++) temp += A[i][k] * B[j][k];
         result[i][j] = temp;
@@ -198,7 +198,7 @@ int main() {
     return -1;
   }
 
-  matrix_parallel_mult(MATRIX_SIZE, THREAD_NUMBER, A, B, result);
+  //matrix_parallel_mult(MATRIX_SIZE, THREAD_NUMBER, A, B, result);
   matrix_mult(MATRIX_SIZE, A, B, result);
 
   printf("Press Enter for result\n");

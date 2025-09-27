@@ -3,6 +3,7 @@ project(matrix-benchmark-single-machine C)
 
 
 set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fopenmp")
 
 # Find OpenMP
 find_package(OpenMP REQUIRED)
