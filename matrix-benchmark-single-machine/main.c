@@ -10,7 +10,7 @@
 #define ERROR_MEMORY_ALLOCATION 0x66
 
 #define THREAD_NUMBER 6
-#define MATRIX_SIZE 10000
+#define MATRIX_SIZE 500
 
 #define PI 3.14159265358979323846
 
@@ -158,7 +158,6 @@ int matrix_parallel_mult
       }
     }
 
-
     PAPI_stop(EventSet, measures);
 
     #pragma omp critical
@@ -198,7 +197,7 @@ int main() {
     return -1;
   }
 
-  //matrix_parallel_mult(MATRIX_SIZE, THREAD_NUMBER, A, B, result);
+  matrix_parallel_mult(MATRIX_SIZE, THREAD_NUMBER, A, B, result);
   matrix_mult(MATRIX_SIZE, A, B, result);
 
   printf("Press Enter for result\n");
