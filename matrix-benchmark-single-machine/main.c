@@ -149,7 +149,7 @@ int matrix_parallel_mult
 
     PAPI_start(EventSet);
 
-    #pragma omp for collapse(2) private(i, j)
+    #pragma omp for private(i, j)
     for (i = 0; i < size; i++) {
       for (j = 0; j < size; j++) {
         float temp = (float) 0.;
